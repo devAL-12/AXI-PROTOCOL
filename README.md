@@ -2,7 +2,7 @@
 
 # Handshake RTL Protocol — Verilog Implementation
 
-A synthesizable, AXI4-Stream-style **valid/ready handshake protocol** implemented in Verilog, targeting Xilinx FPGAs (tested on `xc7vx485tffg1157-1` via Vivado 2020.1).
+A synthesizable, AXI4-Stream-style **valid/ready handshake protocol** implemented in Verilog, targeting Xilinx FPGAs 
 
 ---
 
