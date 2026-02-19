@@ -37,13 +37,13 @@ This module implements a **two-party handshake** between a Master (producer) and
 
 ## Features
 
-- ✅ Synthesizable RTL (no behavioral-only constructs)
-- ✅ Active-low asynchronous reset
-- ✅ 3-state Master FSM with data hold capability
-- ✅ 2-state Slave FSM with pre-asserted ready
-- ✅ Single-cycle `transaction_done` pulse
-- ✅ `default` cases in all FSMs (prevents latch inference)
-- ✅ Verified in Vivado 2020.1 XSim (25 transactions, all PASS)
+-  Synthesizable RTL (no behavioral-only constructs)
+-  Active-low asynchronous reset
+-  3-state Master FSM with data hold capability
+-  2-state Slave FSM with pre-asserted ready
+-  Single-cycle `transaction_done` pulse
+-  `default` cases in all FSMs (prevents latch inference)
+-  Verified in Vivado 2020.1 XSim (25 transactions, all PASS)
 
 ---
 
@@ -259,7 +259,7 @@ Tick 2: start=0, ready=1 → no branch matches → DATA LOST ❌
 
 ```
 Tick 1: start=1, ready=0 → data saved, move to M_WAIT_FOR_READY
-Tick 2: start=0, ready=1 → slave free! assert valid → DATA SAFE ✅
+Tick 2: start=0, ready=1 → slave free! assert valid → DATA SAFE 
 ```
 
 ---
@@ -317,7 +317,7 @@ protocol_handshake/
    PASS  : 25
    FAIL  : 0
    TOTAL : 25
-   ✅ ALL TESTS PASSED
+    ALL TESTS PASSED
 =======================================================
 ```
 
@@ -332,50 +332,5 @@ protocol_handshake/
 
 ---
 
-## Vivado Setup
 
-```tcl
-create_project protocol_handshake ./protocol_handshake -part xc7vx485tffg1157-1
-add_files handshake.v
-add_files tb.v
-update_compile_order -fileset sources_1
-launch_simulation
-run 10 us
-```
 
----
-
-## Known Warnings
-
-```
-WARNING: [XSIM 43-4100] Module handshake_rtl has a timescale but at
-least one module in design doesn't have timescale.
-```
-
-**Cause:** The testbench file is missing `` `timescale 1ns/1ps `` at the top.
-
-**Fix:** Add to the first line of `tb.v`:
-```verilog
-`timescale 1ns / 1ps
-```
-
-This warning does not affect functional simulation results but should be resolved before any timing simulation or synthesis.
-
----
-
-## Target Device
-
-| Parameter | Value |
-|-----------|-------|
-| Family | Virtex-7 |
-| Device | xc7vx485t |
-| Package | ffg1157 |
-| Speed Grade | -1 |
-| Tool | Vivado 2020.1 |
-| Simulation | XSim (Behavioral) |
-
----
-
-## License
-
-MIT License — free to use, modify, and distribute with attribution.
